@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberShield - Cybercrime Reporting Platform</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app-container">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo-section">
+            <h2>🛡️ CyberShield</h2>
+            <p class="tagline">Secure Reporting Platform</p>
+        </div>
+
+        <nav class="sidebar-nav">
+            <button class="menu-btn active" onclick="showSection('report')">
+                <span class="icon">📝</span>
+                <span>Report Crime</span>
+            </button>
+            <button class="menu-btn" onclick="showSection('track')">
+                <span class="icon">🔍</span>
+                <span>Track Report</span>
+            </button>
+            <button class="menu-btn" onclick="showSection('chatbot')">
+                <span class="icon">🤖</span>
+                <span>AI Assistant</span>
+            </button>
+            <button class="menu-btn" onclick="showSection('news')">
+                <span class="icon">📰</span>
+                <span>Security News</span>
+            </button>
+            <button class="menu-btn" onclick="showSection('faq')">
+                <span class="icon">❓</span>
+                <span>Help & FAQ</span>
+            </button>
+        </nav>
+
+        <!-- Investigator Access -->
+        <button class="investigator-btn" onclick="window.location.href='investigator.html'">
+            🕵️ Investigator Login
+        </button>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+
+        <!-- REPORT CRIME SECTION -->
+        <div id="report" class="section active">
+            <div class="section-header">
+                <h1>Report a Cybercrime</h1>
+                <p class="subtitle">Your report helps us protect the community. All information is confidential.</p>
+            </div>
+
+            <div class="report-form-container">
+                <form id="reportForm">
+                    
+                    <!-- Crime Type -->
+                    <div class="form-group">
+                        <label for="crimeType">Type of Cybercrime *</label>
+                        <select id="crimeType" required>
+                            <option value="">Select crime type...</option>
+                            <option value="phishing">Phishing / Fake Emails</option>
+                            <option value="hacking">Account Hacking</option>
+                            <option value="scam">Online Scam / Fraud</option>
+                            <option value="identity-theft">Identity Theft</option>
+                            <option value="cyberbullying">Cyberbullying / Harassment</option>
+                            <option value="malware">Malware / Ransomware</option>
+                            <option value="financial-fraud">Financial Fraud</option>
+                            <option value="data-breach">Data Breach</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <!-- Incident Date -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="incidentDate">Date of Incident *</label>
+                            <input type="date" id="incidentDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="incidentTime">Time (approximate)</label>
+                            <input type="time" id="incidentTime">
+                        </div>
+                    </div>
+
+                    <!-- Platform -->
+                    <div class="form-group">
+                        <label for="platform">Platform / Service Involved</label>
+                        <input type="text" id="platform" placeholder="e.g., WhatsApp, Instagram, Email, Bank Website">
+                    </div>
+
+                    <!-- Description -->
+                    <div class="form-group">
+                        <label for="description">Detailed Description *</label>
+                        <textarea id="description" rows="6" required 
+                                  placeholder="Please describe what happened in detail. Include:
+• What you were doing when the incident occurred
+• Any suspicious links, messages, or emails you received
+• Actions taken by the attacker
+• Any financial loss or damage
+• Other relevant information"></textarea>
+                        <div class="char-count">
+                            <span id="charCount">0</span> / 1000 characters
+                        </div>
+                    </div>
+
+                    <!-- Evidence Upload -->
+                    <div class="form-group">
+                        <label for="evidence">Upload Evidence (Screenshots, Documents)</label>
+                        <div class="upload-area" id="uploadArea">
+                            <input type="file" id="evidence" multiple accept="image/*,.pdf,.doc,.docx" hidden>
+                            <div class="upload-prompt">
+                                <span class="upload-icon">📎</span>
+                                <p>Click to upload or drag files here</p>
+                                <small>Supported: Images, PDF, Word (Max 10MB each)</small>
+                            </div>
+                        </div>
+                        <div id="fileList" class="file-list"></div>
+                    </div>
+
+                    <!-- Contact Information -->
+                    <div class="form-section-title">
+                        <h3>Contact Information (Optional)</h3>
+                        <p>Provide your contact details if you want updates on your case</p>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="reporterName">Full Name</label>
+                            <input type="text" id="reporterName" placeholder="Your name">
+                        </div>
+                        <div class="form-group">
+                            <label for="reporterEmail">Email Address</label>
+                            <input type="email" id="reporterEmail" placeholder="your.email@example.com">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reporterPhone">Phone Number</label>
+                        <input type="tel" id="reporterPhone" placeholder="+60 12-345 6789">
+                    </div>
+
+                    <!-- Anonymous Reporting -->
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="anonymous">
+                            <span>Submit this report anonymously</span>
+                        </label>
+                        <small class="help-text">Anonymous reports are still investigated, but we cannot provide case updates</small>
+                    </div>
+
+                    <!-- Priority Indicator -->
+                    <div class="priority-box" id="priorityBox" style="display:none;">
+                        <strong>⚠️ Priority Level:</strong> <span id="priorityLevel">Medium</span>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" onclick="resetForm()">Clear Form</button>
+                        <button type="submit" class="btn-primary">Submit Report</button>
+                    </div>
+
+                </form>
+
+                <!-- Success Message -->
+                <div id="successMessage" class="success-message" style="display:none;">
+                    <div class="success-icon">✓</div>
+                    <h2>Report Submitted Successfully!</h2>
+                    <p>Your case number is: <strong id="caseNumber"></strong></p>
+                    <p>Save this number to track your report status.</p>
+                    <div class="success-actions">
+                        <button class="btn-primary" onclick="showSection('track')">Track This Report</button>
+                        <button class="btn-secondary" onclick="submitAnother()">Submit Another Report</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TRACK REPORT SECTION -->
+        <div id="track" class="section">
+            <div class="section-header">
+                <h1>Track Your Report</h1>
+                <p class="subtitle">Enter your case number to check the status of your report</p>
+            </div>
+
+            <div class="track-container">
+                <div class="track-input-group">
+                    <input type="text" id="trackingNumber" placeholder="Enter case number (e.g., CR-2025-0001)">
+                    <button class="btn-primary" onclick="trackReport()">Track</button>
+                </div>
+
+                <div id="trackingResult" style="display:none;">
+                    <div class="case-card">
+                        <div class="case-header">
+                            <h3>Case Details</h3>
+                            <span class="status-badge" id="statusBadge">New</span>
+                        </div>
+                        <div class="case-info">
+                            <div class="info-row">
+                                <span class="label">Case Number:</span>
+                                <span class="value" id="trackCaseNumber"></span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Crime Type:</span>
+                                <span class="value" id="trackCrimeType"></span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Submitted:</span>
+                                <span class="value" id="trackDate"></span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Assigned To:</span>
+                                <span class="value" id="trackInvestigator">-</span>
+                            </div>
+                        </div>
+
+                        <!-- Timeline -->
+                        <div class="timeline">
+                            <h4>Case Timeline</h4>
+                            <div class="timeline-item active">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-content">
+                                    <strong>Report Submitted</strong>
+                                    <small id="timeline1"></small>
+                                </div>
+                            </div>
+                            <div class="timeline-item" id="timelineStep2">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-content">
+                                    <strong>Under Investigation</strong>
+                                    <small id="timeline2">Pending</small>
+                                </div>
+                            </div>
+                            <div class="timeline-item" id="timelineStep3">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-content">
+                                    <strong>Case Resolved</strong>
+                                    <small id="timeline3">Pending</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CHATBOT SECTION -->
+        <div id="chatbot" class="section">
+            <div class="section-header">
+                <h1>AI Cyber Assistant</h1>
+                <p class="subtitle">Get instant help with your cybersecurity questions</p>
+            </div>
+
+            <div class="chat-container">
+                <div id="chatbox">
+                    <div class="message bot">
+                        <div class="message-content">
+                            Hello! I'm your CyberShield AI assistant. I can help you with:
+                            <ul>
+                                <li>Understanding different types of cybercrimes</li>
+                                <li>Guidance on reporting incidents</li>
+                                <li>Immediate safety steps to take</li>
+                                <li>General cybersecurity advice</li>
+                            </ul>
+                            How can I assist you today?
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-area">
+                    <input type="text" id="userInput" placeholder="Type your question..." 
+                           onkeypress="if(event.key==='Enter') sendMessage()">
+                    <button onclick="sendMessage()" class="send-btn">Send</button>
+                </div>
+
+                <!-- Quick Action Buttons -->
+                <div class="quick-actions">
+                    <button class="quick-btn" onclick="quickQuestion('What is phishing?')">What is phishing?</button>
+                    <button class="quick-btn" onclick="quickQuestion('How to report a scam?')">How to report?</button>
+                    <button class="quick-btn" onclick="quickQuestion('Account hacked help')">Account hacked</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- NEWS SECTION -->
+        <div id="news" class="section">
+            <div class="section-header">
+                <h1>Cybersecurity News & Trends</h1>
+                <p class="subtitle">Stay informed about the latest cyber threats and security updates</p>
+            </div>
+
+            <!-- Statistics Dashboard -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-content">
+                        <h3 id="totalReports">0</h3>
+                        <p>Total Reports</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">⚠️</div>
+                    <div class="stat-content">
+                        <h3 id="activeReports">0</h3>
+                        <p>Active Cases</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-content">
+                        <h3 id="resolvedReports">0</h3>
+                        <p>Resolved</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🎯</div>
+                    <div class="stat-content">
+                        <h3 id="resolutionRate">0%</h3>
+                        <p>Resolution Rate</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- News Feed -->
+            <div class="news-section">
+                <h3>Latest Security News</h3>
+                <div id="news-feed-container">
+                    <ul id="news-feed">
+                        <li>Loading latest cybersecurity news...</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ SECTION -->
+        <div id="faq" class="section">
+            <div class="section-header">
+                <h1>Frequently Asked Questions</h1>
+                <p class="subtitle">Find answers to common questions about cybercrime reporting</p>
+            </div>
+
+            <div class="faq-container">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>What is cybercrime?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        Cybercrime refers to illegal activities carried out using computers, networks, or the internet. This includes hacking, phishing, online scams, identity theft, cyberbullying, malware attacks, and financial fraud. These crimes can target individuals, businesses, or government organizations.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>How do I report a cybercrime?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        You can report cybercrime directly through our platform by clicking the "Report Crime" button. Fill out the form with as much detail as possible, including date, time, type of crime, and any evidence. You can also report to local authorities such as MYCERT (Malaysia), your local police cybercrime unit, or through official government reporting platforms.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>What should I include in my report?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        Include the following details:
+                        <ul>
+                            <li>Date and time of the incident</li>
+                            <li>Type of cybercrime experienced</li>
+                            <li>Platform or service involved (WhatsApp, email, banking site, etc.)</li>
+                            <li>Detailed description of what happened</li>
+                            <li>Screenshots, emails, or other evidence</li>
+                            <li>Any financial loss incurred</li>
+                            <li>Suspect information if available</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Can I report anonymously?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        Yes, our platform supports anonymous reporting. Simply check the "Submit anonymously" box when filing your report. However, note that anonymous reports may limit our ability to follow up with you or provide case updates. Providing contact information helps investigators resolve cases more effectively.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>How long does investigation take?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        Investigation timelines vary depending on the complexity of the case, availability of evidence, and cooperation from involved parties. Simple cases may be resolved within days, while complex investigations involving multiple jurisdictions can take weeks or months. You can track your case status using your case number.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>What happens after I submit a report?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        After submission, you'll receive a unique case number. Your report will be reviewed by our team and assigned to an investigator based on priority and type. You'll be contacted if additional information is needed. Track your case status anytime using the "Track Report" feature.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>How can I protect myself from phishing?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        Protect yourself from phishing by:
+                        <ul>
+                            <li>Never clicking suspicious links in emails or messages</li>
+                            <li>Verifying sender email addresses carefully</li>
+                            <li>Enabling two-factor authentication on all accounts</li>
+                            <li>Not sharing passwords or sensitive information via email</li>
+                            <li>Checking website URLs before entering credentials</li>
+                            <li>Reporting phishing attempts to your email provider</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>What to do if my account is hacked?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        Take immediate action:
+                        <ol>
+                            <li>Change your password immediately using a secure device</li>
+                            <li>Enable two-factor authentication</li>
+                            <li>Check for unauthorized access or changes</li>
+                            <li>Notify the platform's support team</li>
+                            <li>Scan your devices for malware</li>
+                            <li>Review connected apps and revoke suspicious access</li>
+                            <li>Report the incident through our platform</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Is my data safe on this platform?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        Yes. We use industry-standard encryption to protect all data transmitted and stored on our platform. Access to reports is strictly limited to authorized investigators. We comply with data protection regulations and never share your information with unauthorized third parties. All files are stored securely and deleted according to our retention policy.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>What are common types of online scams?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        Common online scams include:
+                        <ul>
+                            <li><strong>Phishing:</strong> Fake emails pretending to be from legitimate companies</li>
+                            <li><strong>Romance scams:</strong> Fraudsters building fake relationships to steal money</li>
+                            <li><strong>Investment scams:</strong> Too-good-to-be-true investment opportunities</li>
+                            <li><strong>Shopping scams:</strong> Fake online stores or products</li>
+                            <li><strong>Tech support scams:</strong> Fake calls claiming computer problems</li>
+                            <li><strong>Prize/lottery scams:</strong> Claiming you've won something you didn't enter</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
