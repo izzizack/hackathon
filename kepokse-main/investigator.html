@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>CyberShield Investigator Panel</title>
+    <link rel="stylesheet" href="investigator.css">
+</head>
+<body>
+
+<div class="app-container">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>🛡 Investigator</h2>
+
+        <button class="menu-btn" onclick="showSection('news')">📰 News & Trends</button>
+        <button class="menu-btn" onclick="showSection('reports')">📄 User Reports</button>
+
+        <!-- Back to User -->
+        <button class="menu-btn" style="margin-top:auto; background:#00ffcc; color:black;"
+                onclick="window.location.href='../user/index.html'">
+            👤 Back to User View
+        </button>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+
+        <!-- NEWS & DASHBOARD SECTION -->
+        <div id="news" class="section">
+            <h1>News & Trends</h1>
+
+            <div id="dashboard-container">
+                <iframe id="dashboard-frame" src=""></iframe>
+            </div>
+
+            <div id="news-feed-container">
+                <ul id="news-feed"></ul>
+            </div>
+        </div>
+
+        <!-- USER REPORTS SECTION -->
+        <div id="reports" class="section" style="display:none;">
+            <h2>User Reports</h2>
+
+            <div class="reports-container">
+
+                <!-- User list -->
+                <div style="width:250px;">
+                    <div id="user-list"></div>
+                </div>
+
+                <!-- Report details + chat -->
+                <div style="flex:1;">
+                    <div id="report-details">
+                        <h3>Select a user to see report details</h3>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="investigator.js"></script>
+</body>
+</html>
+
+
+

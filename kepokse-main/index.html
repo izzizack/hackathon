@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>CyberShield Report System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app-container">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>🛡 CyberShield</h2>
+
+        <button class="menu-btn" onclick="showSection('chatbot')">🤖 AI Chatbot</button>
+        <button class="menu-btn" onclick="showSection('news')">📰 News & Trends</button>
+        <button class="menu-btn" onclick="showSection('faq')">❓ FAQ</button>
+
+        <!-- Go to Investigator Panel -->
+        <button class="menu-btn" style="margin-top:auto; background:#ff6b6b;"
+                onclick="window.location.href='../invest/investigator.html'">
+            🕵️ Go to Investigator Panel
+        </button>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+
+        <!-- CHATBOT SECTION -->
+        <div id="chatbot" class="section">
+            <h2>Cyber Help Chatbot</h2>
+
+            <div class="chat-container">
+                <div id="chatbox">
+                    <!-- Messages appear here -->
+                </div>
+
+                <div class="input-area">
+                    <input type="text" id="userInput" placeholder="Type your question...">
+                    <button onclick="sendMessage()">Send</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- NEWS SECTION -->
+        <div id="news" class="section" style="display:none;">
+            <h1>News & Trends</h1>
+
+            <div id="dashboard-container">
+                <iframe id="dashboard-frame" src=""></iframe>
+            </div>
+
+            <div id="news-feed-container">
+                <ul id="news-feed"></ul>
+            </div>
+        </div>
+
+        <!-- FAQ SECTION -->
+        <div id="faq" class="section" style="display:none;">
+            <h2>Frequently Asked Questions (FAQ)</h2>
+
+            <div class="faq-item">
+                <button class="faq-question">What is cybercrime?</button>
+                <div class="faq-answer">
+                    Cybercrime refers to illegal activities carried out using computers, networks, or the internet, such as hacking, phishing, online scams, identity theft, or cyberbullying.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">How do I report a cybercrime?</button>
+                <div class="faq-answer">
+                    You can report cybercrime to local authorities, such as your national CERT (e.g., MYCERT in Malaysia), police cybercrime unit, or through official online reporting platforms.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">What should I include in a cybercrime report?</button>
+                <div class="faq-answer">
+                    Date/time of incident, type of cybercrime, platform used (WhatsApp, Instagram, email), description of the incident, and any evidence like screenshots or URLs.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">How can I protect myself from phishing emails?</button>
+                <div class="faq-answer">
+                    Never click unknown links, verify sender addresses, enable two-factor authentication, and report suspicious emails to your email provider or authorities.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">What should I do if my social media account is hacked?</button>
+                <div class="faq-answer">
+                    Immediately change passwords, enable two-factor authentication, notify the platform’s support team, and report the incident to authorities if necessary.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">What is identity theft and how can I prevent it?</button>
+                <div class="faq-answer">
+                    Identity theft occurs when someone steals your personal information to commit fraud. Protect yourself by safeguarding personal data, monitoring accounts, and avoiding sharing sensitive info online.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">How can I recognize an online scam?</button>
+                <div class="faq-answer">
+                    Look for unusual requests for money, pressure tactics, suspicious links, fake websites, or impersonation messages. Verify any request independently before acting.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">Is it safe to share evidence with authorities online?</button>
+                <div class="faq-answer">
+                    Yes, as long as you use official reporting platforms or secure channels provided by authorities. Avoid sharing personal information on public forums.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">What are the common types of cybercrime?</button>
+                <div class="faq-answer">
+                    Phishing, hacking, malware attacks, online scams, social media fraud, cyberbullying, financial fraud, and identity theft.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">Can I report a cybercrime anonymously?</button>
+                <div class="faq-answer">
+                    Many official platforms allow anonymous reporting, but providing contact info may help investigators follow up and resolve the case faster.
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
+
+
